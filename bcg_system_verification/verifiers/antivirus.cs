@@ -5,10 +5,18 @@ using System.Management;
 
 namespace bcg_system_verification.verifiers
 {
-    class software
+    class antivirus
     {
-        public string avVerify()
+        public static string Verify()
         {
+            if (Globals.debugMode)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("********************");
+                Console.WriteLine(" antivirus.Verify() ");
+                Console.WriteLine("********************");
+            }
+            
             //FirewallProduct
             string WMINameSpace = System.Environment.OSVersion.Version.Major > 5 ? "SecurityCenter2" : "SecurityCenter";
             ManagementScope Scope = new ManagementScope("root\\" + WMINameSpace);

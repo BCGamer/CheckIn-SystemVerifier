@@ -55,10 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
+    <Compile Include="http\get.cs" />
     <Compile Include="http\GET_UUID.cs" />
     <Compile Include="http\POST_RESPONSE.cs" />
-    <Compile Include="verifiers\software.cs" />
-    <Compile Include="verifiers\network.cs" />
+    <Compile Include="verifiers\antivirus.cs" />
+    <Compile Include="verifiers\dhcp.cs" />
+    <Compile Include="verifiers\firewall.cs" />
+    <Compile Include="verifiers\sfp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="verifiers\statusCheck.cs" />
