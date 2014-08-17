@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bcg_system_verification", "data_collection\bcg_system_verification.csproj", "{539F58BF-74A6-4E0B-9D31-783C03929709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bcg_system_verification", "bcg_system_verification\bcg_system_verification.csproj", "{539F58BF-74A6-4E0B-9D31-783C03929709}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
