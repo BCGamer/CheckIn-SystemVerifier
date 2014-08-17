@@ -9,6 +9,7 @@ namespace bcg_system_verification
     {
         public static bool debugMode = false;
         public static string scriptPath = Directory.GetCurrentDirectory();
+        public static string server = "10.5.1.14";
         
         //Look at converting this to a NameValueCollection
         //http://msdn.microsoft.com/en-us/library/system.collections.specialized.namevaluecollection(v=vs.110).aspx

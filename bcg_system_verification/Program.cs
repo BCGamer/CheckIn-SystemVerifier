@@ -13,11 +13,11 @@ namespace bcg_system_verification
             //remove me when done
             Globals.debugMode = true;
 
-            if ( args.Length > 0 ){
-                parseArgs(args);
-            }
-
+            //Startup
             Globals.init();
+            Arguments.check(args);
+
+            //Primary App
             App();
         }
 
@@ -30,36 +30,11 @@ namespace bcg_system_verification
             Globals.Props[4, 1] = dhcp.Verify();
             Globals.Props[5, 1] = sfp.Verify();
 
+            post.final();
             //Debugging console
-            if (Globals.debugMode) debugConsole();
+            if (Globals.debugMode) Debug.results();
+
             
-        }
-
-        private static void debugConsole()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("********************");
-            Console.WriteLine("       Results      ");
-            Console.WriteLine("********************");
-
-            Console.WriteLine(Globals.Props[0, 0] + ": " + Globals.Props[0, 1]);
-            Console.WriteLine(Globals.Props[1, 0] + ": " + Globals.Props[1, 1]);
-            Console.WriteLine(Globals.Props[2, 0] + ": " + Globals.Props[2, 1]);
-            Console.WriteLine(Globals.Props[3, 0] + ": " + Globals.Props[3, 1]);
-            Console.WriteLine(Globals.Props[4, 0] + ": " + Globals.Props[4, 1]);
-            Console.WriteLine(Globals.Props[5, 0] + ": " + Globals.Props[5, 1]);
-
-            //pause so we can see results
-            Console.ReadLine();
-        }
-
-        public static void parseArgs(string[] args)
-        {
-            if (args[0] == "/debug")
-            {
-                Console.WriteLine("Mode = Debugging");
-                Globals.debugMode = true;
-            }
         }
     }
 }

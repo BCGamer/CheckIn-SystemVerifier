@@ -4,12 +4,11 @@ using System.Text;
 
 namespace bcg_system_verification.http
 {
-    class get
+    class post
     {
-        public static void uuid_and_ip()
+        public static void final()
         {
-            Globals.Props[0, 1] = "1234";
-            Globals.Props[1, 1] = "10.5.1.240";
+
         }
     }
 }

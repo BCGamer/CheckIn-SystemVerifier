@@ -54,10 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arguments.cs" />
+    <Compile Include="Debug.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="http\get.cs" />
-    <Compile Include="http\GET_UUID.cs" />
-    <Compile Include="http\POST_RESPONSE.cs" />
+    <Compile Include="http\post.cs" />
     <Compile Include="verifiers\antivirus.cs" />
     <Compile Include="verifiers\dhcp.cs" />
     <Compile Include="verifiers\firewall.cs" />
