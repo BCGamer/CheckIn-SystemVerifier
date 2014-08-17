@@ -4,12 +4,13 @@ using System.Text;
 using System.Management;
 using Microsoft.Win32;
 
-namespace data_collection.verifiers
+namespace bcg_system_verification.verifiers
 {
     class network
     {
         public string dhcpVerify(string ipaddress)
         {
+            
             ManagementScope Scope = new ManagementScope("root\\CIMV2");
             ObjectQuery Query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration");
             ManagementObjectSearcher moSearch = new ManagementObjectSearcher(Scope, Query);
@@ -39,13 +40,18 @@ namespace data_collection.verifiers
              * Query registry for Windows Firewall 
             */
             string systemRoot = "HKEY_LOCAL_MACHINE";
-            string keyPath = "\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\StandardProfile";
-            string keyName = systemRoot + keyPath;
+            string keyPath = "\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\";
+            string stdkeyName = systemRoot + keyPath + "StandardProfile";
+            string pubkeyName = systemRoot + keyPath + "PublicProfile";
             string valueName = "EnableFirewall";
-            object firewallStatus = Registry.GetValue(keyName, valueName, "0");
+            
+            //Looks at the registry values for Private/Standard and Private networks
+            object stdFwStatus = Registry.GetValue(stdkeyName, valueName, "0");
+            object pubFwStatus = Registry.GetValue(pubkeyName, valueName, "0");
 
-            if (firewallStatus.ToString() == "1") { 
-                return "good"; 
+            if (stdFwStatus.ToString() == "1" && pubFwStatus.ToString() == "1")
+            { 
+                return "good";
             }
 
             /*

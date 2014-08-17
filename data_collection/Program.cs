@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using data_collection.verifiers;
-using data_collection.http;
+using bcg_system_verification.verifiers;
+using bcg_system_verification.http;
+using System.IO;
 
-namespace data_collection
+
+namespace bcg_system_verification
 {
     class Program
     {
+        bool debugMode = false;
+        string scriptPath = Directory.GetCurrentDirectory();
+        
         static void Main(string[] args)
         {
+            
+            if ( args.Length > 0 ){
+                parseArgs(args);
+            }
+            
             Boolean status = new Boolean();
             String[,] Props = new String[6, 2];
             Props[0, 0] = "uuid";
@@ -75,6 +85,20 @@ namespace data_collection
 
             //pause so we can see results
             Console.ReadLine();
+        }
+
+        public static void parseArgs(string[] args)
+        {
+            if (args.Length > 1)
+            {
+                Console.WriteLine("Bad");
+            }
+            else if (args[0] == "/debug")
+            {
+                Console.WriteLine("Debugging");
+                bool debugMode = true;
+            }
+            
         }
     }
 }

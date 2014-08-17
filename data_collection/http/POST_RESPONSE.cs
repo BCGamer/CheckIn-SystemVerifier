@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace data_collection.http
+namespace bcg_system_verification.http
 {
     class POST_RESPONSE
     {

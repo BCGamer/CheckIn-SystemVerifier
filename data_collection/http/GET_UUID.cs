@@ -4,7 +4,7 @@ using System.Text;
 using System.Net; //for GET/POST operations
 using System.Collections.Specialized; //for GET/POST operations
 
-namespace data_collection.http
+namespace bcg_system_verification.http
 {
     class GET_UUID
     {

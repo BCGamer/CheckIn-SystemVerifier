@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Management;
 
-namespace data_collection.verifiers
+namespace bcg_system_verification.verifiers
 {
     class software
     {
