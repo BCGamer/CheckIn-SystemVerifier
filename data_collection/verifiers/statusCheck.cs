@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace data_collection.verifiers
+namespace bcg_system_verification.verifiers
 {
-    class firewall
+    class statusCheck
     {
     }
 }

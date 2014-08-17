@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("data_collection")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("BCGamer System Verification")]
+[assembly: AssemblyDescription("BC Gamer - System Verification")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("data_collection")]
+[assembly: AssemblyCompany("LANtasy Gaming Society")]
+[assembly: AssemblyProduct("bcg_system_verification")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("BC Gamer")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

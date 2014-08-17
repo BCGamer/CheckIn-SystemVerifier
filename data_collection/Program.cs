@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading; //for Threading operations
-using System.Net; //for GET/POST operations
-using System.Collections.Specialized; //for GET/POST operations
+using data_collection.verifiers;
+using data_collection.http;
 
 namespace data_collection
 {
@@ -11,56 +10,71 @@ namespace data_collection
     {
         static void Main(string[] args)
         {
-            
-            /*
-            Thread[] threads = new Thread[4];
-            threads[0] = new Thread(avThread);
-            threads[1] = new Thread(fwThread);
-            threads[2] = new Thread(dhcpThread);
-            threads[3] = new Thread(sfpThread);
+            Boolean status = new Boolean();
+            String[,] Props = new String[6, 2];
+            Props[0, 0] = "uuid";
+            Props[1, 0] = "ipaddress";
+            Props[2, 0] = "firewall";
+            Props[3, 0] = "antivirus";
+            Props[4, 0] = "dhcp";
+            Props[5, 0] = "sfp";
 
-            
-            for (int i = 0; i < 4; i++)
-            {
-                threads[i].Start();
-            }
-             */
+            Props = initApp(Props);
+            Props = verifyApp(Props);
+            status = postApp(Props);
 
+            //Debugging console
+            debugConsole(Props, status);
             
         }
-        /*
-        static void avThread()
-        {
-            string av_status = "good";
-            
+
+        private static string[,] initApp(string[,] Props){
+            //HTTP Get:
+            GET_UUID httpGet = new GET_UUID();
+
+            //initProps = httpGet.
+            Props[0, 1] = "1234";
+            Props[1, 1] = "10.5.1.240";
+
+            return Props;
         }
-        static public void fwThread()
+
+        private static string[,] verifyApp(string[,] Props)
         {
-            string fw_status = "good";
+            //Verify Operations
+            network networkTest = new network();
+            software softwareTest = new software();
+
+            Props[2, 1] = networkTest.fwVerify();
+            Props[3, 1] = softwareTest.avVerify();
+            Props[4, 1] = networkTest.dhcpVerify(Props[1,1]);
+            Props[5, 1] = networkTest.sfpVerify();
+
+            return Props;
         }
-        static public void dhcpThread()
+
+        private static Boolean postApp(string[,] Props)
         {
-            string dhcp_status = "good";
+            Boolean status = new Boolean();
+
+            //HTTP Post:
+            POST_RESPONSE httpPost = new POST_RESPONSE();
+
+            return status;
         }
-        static public void sfpThread()
+
+        private static void debugConsole(string[,] Props, bool status)
         {
-            string sfp_status = "good";
+            Console.WriteLine(Props[0, 0] + ": " + Props[0, 1]);
+            Console.WriteLine(Props[1, 0] + ": " + Props[1, 1]);
+            Console.WriteLine(Props[2, 0] + ": " + Props[2, 1]);
+            Console.WriteLine(Props[3, 0] + ": " + Props[3, 1]);
+            Console.WriteLine(Props[4, 0] + ": " + Props[4, 1]);
+            Console.WriteLine(Props[5, 0] + ": " + Props[5, 1]);
+            Console.WriteLine("success: " + status);
+
+            //pause so we can see results
+            Console.ReadLine();
         }
-        static public void httpPost()
-        {
-            NameValueCollection values[] = new NameValueCollection();
-            values["antivirus"] = av_status;
-            
-            values["firewall"] = fw_status;
-            values["dhcp"] = dhcp_status;
-            values["sfp"] = sfp_status;
-            values["uuid"] = "";
-            
-            using (var client = new WebClient())
-            {
-                
-            }
-        }
-         */ 
     }
 }
