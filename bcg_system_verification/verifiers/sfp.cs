@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace bcg_system_verification.verifiers
@@ -8,14 +7,7 @@ namespace bcg_system_verification.verifiers
     {
         public static string Verify()
         {
-            if (Globals.debugMode)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("**************");
-                Console.WriteLine(" sfp.Verify() ");
-                Console.WriteLine("**************");
-            }
-
+            if (Globals.debugMode) Debug.writeHeader("sfp.Verify()");
             return "problem";
         }
     }

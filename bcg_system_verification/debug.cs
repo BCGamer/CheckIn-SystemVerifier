@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace bcg_system_verification
@@ -8,28 +7,23 @@ namespace bcg_system_verification
     {
         public static void init()
         {
-            Console.WriteLine("");
-            Console.WriteLine("********************");
-            Console.WriteLine("  Mode = Debugging  ");
-            Console.WriteLine("********************");
-            Console.WriteLine("");
             Globals.debugMode = true;
+            writeHeader("Mode Debugging");
+        }
+
+        public static void writeHeader(string text)
+        {
+            string bar = new String('*', text.Length + 2);
+            text = " " + text + " ";
+            Console.WriteLine("\n" + bar + "\n" + text + "\n" + bar + "\n");
         }
 
         public static void results()
         {
-            Console.WriteLine("");
-            Console.WriteLine("********************");
-            Console.WriteLine("       Results      ");
-            Console.WriteLine("********************");
-
-            Console.WriteLine(Globals.Props[0, 0] + ": " + Globals.Props[0, 1]);
-            Console.WriteLine(Globals.Props[1, 0] + ": " + Globals.Props[1, 1]);
-            Console.WriteLine(Globals.Props[2, 0] + ": " + Globals.Props[2, 1]);
-            Console.WriteLine(Globals.Props[3, 0] + ": " + Globals.Props[3, 1]);
-            Console.WriteLine(Globals.Props[4, 0] + ": " + Globals.Props[4, 1]);
-            Console.WriteLine(Globals.Props[5, 0] + ": " + Globals.Props[5, 1]);
-            Console.WriteLine("Server: " + Globals.server);
+            for (int i = 0; i < Globals.collection.Count; i++)
+            {
+                Console.WriteLine("{0,-15}: {1,-40}", Globals.collection.GetKey(i), Globals.collection.Get(i));
+            }
 
             //pause so we can see results
             Console.ReadLine();

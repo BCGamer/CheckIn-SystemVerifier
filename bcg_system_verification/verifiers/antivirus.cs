@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Management;
 
@@ -7,16 +6,14 @@ namespace bcg_system_verification.verifiers
 {
     class antivirus
     {
-        public static string Verify()
+        public static void Verify()
         {
-            if (Globals.debugMode)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("********************");
-                Console.WriteLine(" antivirus.Verify() ");
-                Console.WriteLine("********************");
-            }
-            
+            if (Globals.debugMode) Debug.writeHeader("antivirus.Verify()");
+            Globals.collection.Add("antivirus", checkForAntivirus());
+        }
+
+        private static string checkForAntivirus()
+        {
             //FirewallProduct
             string WMINameSpace = System.Environment.OSVersion.Version.Major > 5 ? "SecurityCenter2" : "SecurityCenter";
             ManagementScope Scope = new ManagementScope("root\\" + WMINameSpace);

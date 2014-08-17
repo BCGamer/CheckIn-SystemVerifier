@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Management;
 
@@ -7,20 +6,11 @@ namespace bcg_system_verification.verifiers
 {
     class dhcp
     {
-        public static string Verify()
+        public static void Verify()
         {
-            if (Globals.debugMode)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("***************");
-                Console.WriteLine(" dhcp.Verify() ");
-                Console.WriteLine("***************");
-            }
-
-            string status = checkDHCPStatusFromWMI();
-
+            if (Globals.debugMode) Debug.writeHeader("dhcp.Verify()");
+            Globals.collection.Add("dhcp",checkDHCPStatusFromWMI());
             if (Globals.debugMode) Console.WriteLine("");
-            return status;
         }
 
         private static string checkDHCPStatusFromWMI()
@@ -49,13 +39,8 @@ namespace bcg_system_verification.verifiers
                         //dont paste a blank link
                     }
 
-                    if ((string)mo["MACAddress"] == "")
-                    {
-                        Console.WriteLine("MAC Address:" + mo["MACAddress"]);
-                    }
-
+                    Console.WriteLine("MAC Address:" + mo["MACAddress"]);
                     Console.WriteLine("DHCP Enabled: " + mo["DHCPEnabled"]);
-                    
                     Console.WriteLine("");
                 }
 
@@ -65,7 +50,7 @@ namespace bcg_system_verification.verifiers
 
                 //Loops through objects until the IP = ipaddress
                 //Array [0 = ipv4, 1=ipv6]
-                if (addresses[0] != Globals.Props[1, 1]) continue;
+                if (addresses[0] != Globals.collection.Get("ipaddress")) continue;
 
 
                 //If DHCPEnabled = true, return good, else bad

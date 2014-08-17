@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace bcg_system_verification
@@ -18,10 +17,10 @@ namespace bcg_system_verification
                 {
                     //To hardcode server for debugging
                     //syntax - /server:10.5.1.5 or /server:nameServer
-                    Globals.server = value.Replace("/server:","");
+                    Globals.collection.Remove("server");
+                    Globals.collection.Set("server",value.Replace("/server:",""));
                 }
             }
-
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Management;
 using Microsoft.Win32;
@@ -8,23 +7,17 @@ namespace bcg_system_verification.verifiers
 {
     class firewall
     {
-        public static string Verify()
+        public static void Verify()
         {
-            if (Globals.debugMode)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("*******************");
-                Console.WriteLine(" firewall.verify() ");
-                Console.WriteLine("*******************");
-            }
+            if (Globals.debugMode) Debug.writeHeader("firewall.verify()");
             string windowsFW = checkForWindowsFW();
             string otherFW = checkForOtherFW();
             if (windowsFW == "good" || otherFW == "good" ){
                 if (Globals.debugMode) Console.WriteLine("Returning GOOD status firewall.Verify()");
-                return "good";
+                Globals.collection.Add("firewall","good");
             }else{
                 if (Globals.debugMode) Console.WriteLine("Returning BAD status from firewall.Verify()");
-                return "bad";
+                Globals.collection.Add("firewall","bad");
             }
 
         }
