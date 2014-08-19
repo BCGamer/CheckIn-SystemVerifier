@@ -2,6 +2,7 @@
 using System.Text;
 using System.Management;
 using Microsoft.Win32;
+using bcg_system_verification.common;
 
 namespace bcg_system_verification.verifiers
 {
@@ -11,50 +12,18 @@ namespace bcg_system_verification.verifiers
         {
             if (Globals.debugMode) Debug.writeHeader("firewall.verify()");
             string windowsFW = checkForWindowsFW();
-            string otherFW = checkForOtherFW();
-            if (windowsFW == "good" || otherFW == "good" ){
+            string otherFW = securityCenter.viewObjects("FirewallProduct");
+            if (windowsFW == "good"){
                 if (Globals.debugMode) Console.WriteLine("Returning GOOD status firewall.Verify()");
-                Globals.collection.Add("firewall","good");
+                Globals.collection.Add("firewall", windowsFW);
+            }else if (otherFW != "problem" || otherFW != "bad"){
+                if (Globals.debugMode) Console.WriteLine("Returning status details from firewall.Verify()");
+                Globals.collection.Add("firewall", otherFW);
             }else{
                 if (Globals.debugMode) Console.WriteLine("Returning BAD status from firewall.Verify()");
                 Globals.collection.Add("firewall","bad");
             }
 
-        }
-
-        private static string checkForOtherFW()
-        {
-            /*
-             * Query Security Center for external firewalls
-             * Needs testing - on laptop with McAfee
-            */
-            
-            //Windows XP uses "SecurityCenter" namespace
-            //Windows Vista and up uses "SecurityCenter2" namespace
-            string WMINameSpace = System.Environment.OSVersion.Version.Major > 5 ? "SecurityCenter2" : "SecurityCenter";
-            ManagementScope Scope = new ManagementScope("root\\" + WMINameSpace);
-            ObjectQuery Query = new ObjectQuery("SELECT * FROM FirewallProduct");
-            ManagementObjectSearcher moSearch = new ManagementObjectSearcher(Scope, Query);
-
-            foreach (ManagementObject mo in moSearch.Get())
-            {
-                if (Globals.debugMode) Console.WriteLine("Name: " + mo["displayName"]);
-                Console.WriteLine("{0,-35} {1,-40}", "Firewall Name", mo["displayName"]);
-                if (System.Environment.OSVersion.Version.Major < 6) //is XP ?
-                {
-                    if (Globals.debugMode) Console.WriteLine("Enabled: " + mo["enabled"]);
-                    Console.WriteLine("{0,-35} {1,-40}", "Enabled", mo["enabled"]);
-                }
-                else
-                {
-                    if (Globals.debugMode) Console.WriteLine("ProductState: " + mo["productState"]);
-                    Console.WriteLine("{0,-35} {1,-40}", "State", mo["productState"]);
-                }
-                if (Globals.debugMode) Console.WriteLine("");
-            }
-
-            if (Globals.debugMode) Console.WriteLine("Returning BAD status from other firewall");
-            return "bad";
         }
 
         private static string checkForWindowsFW()
