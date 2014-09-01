@@ -40,7 +40,7 @@ namespace bcg_system_verification.common
                     else
                     {
                         results = results + "," + mo["ProductState"].ToString();
-                    }                    
+                    }
                 }
             }
 
