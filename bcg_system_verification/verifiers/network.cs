@@ -8,76 +8,67 @@ namespace bcg_system_verification.verifiers
     {
         public static void Verify()
         {
-            if (Globals.debugMode) Debug.writeHeader("dhcp.Verify()");
-            Globals.collection.Add("dhcp",checkDHCPStatusFromWMI());
+            if (Globals.debugMode) Debug.writeHeader("network.Verify()");
+            ManagementObject mo = findNetAdptConfigWMI();
+            checkDHCPStatusWMI(mo);
             if (Globals.debugMode) Console.WriteLine("");
+            
         }
 
-        private static void windows6x()
-        {
-
-        }
-
-        private static void windows5x()
-        {
-
-        }
-        private static string checkDHCPStatusFromWMI()
+        private static ManagementObject findNetAdptConfigWMI()
         {
             ManagementScope Scope = new ManagementScope("root\\CIMV2");
-            ObjectQuery Query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration");
+            ObjectQuery Query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = '1'");
             ManagementObjectSearcher moSearch = new ManagementObjectSearcher(Scope, Query);
 
             foreach (ManagementObject mo in moSearch.Get())
             {
                 string[] addresses = (string[])mo["IPAddress"];
 
-                if (Globals.debugMode)
-                {
-                    Console.WriteLine(mo["Description"]);
-                    try
-                    {
-                        Console.WriteLine("IPv4 Address: {0}", addresses[0]);
-                        Console.WriteLine("IPv6 Address: {0}", addresses[1]);
-                    }
-                    catch
-                    {
-                        Console.WriteLine("IPv4 Address: n/a");
-                        Console.WriteLine("IPv6 Address: n/a");
-                        //Console.WriteLine("IP Address: ");
-                        //dont paste a blank link
-                    }
-
-                    Console.WriteLine("MAC Address:" + mo["MACAddress"]);
-                    Console.WriteLine("DHCP Enabled: " + mo["DHCPEnabled"]);
-                    Console.WriteLine("");
-                }
-
-                //Loops through objects until IPEnabled = true
-                if (!(bool)mo["IPEnabled"]) continue;
-                
+                if (Globals.debugMode) dumpDebugData(mo);
 
                 //Loops through objects until the IP = ipaddress
                 //Array [0 = ipv4, 1=ipv6]
                 if (addresses[0] != Globals.collection.Get("ipaddress")) continue;
 
-
-                //If DHCPEnabled = true, return good, else bad
-                if ((bool)mo["DHCPEnabled"])
-                {
-                    if (Globals.debugMode) Console.WriteLine("Returning GOOD status from dhcp.Verify()");
-                    return "good";
-                }
-                else
-                {
-                    if (Globals.debugMode) Console.WriteLine("Returning BAD status from dhcp.Verify()");
-                    return "bad";
-                }
+                return mo;
             }
 
-            //Couldn't find the IP
-            if (Globals.debugMode) Console.WriteLine("Returning PROBLEM status from dhcp.Verify()");
-            return "problem";
+            return null;
+        }
+
+        private static void checkDHCPStatusWMI(ManagementObject mo)
+        {
+            switch (mo["DHCPEnabled"].ToString())
+            {
+                case "True":
+                    if (Globals.debugMode) Console.WriteLine("Returning True from network.checkDHCPStatusWMI()");
+                    Globals.collection.Add("dhcp", "True");
+                    break;
+                case "False":
+                    if (Globals.debugMode) Console.WriteLine("Returning False from network.checkDHCPStatusWMI()");
+                    Globals.collection.Add("dhcp", "False");
+                    break;
+                default:
+                    if (Globals.debugMode) Console.WriteLine("Returning Problem from network.checkDHCPStatusWMI()");
+                    Globals.collection.Add("dhcp", "Problem");
+                    break;
+            }
+        }
+
+        private static void dumpDebugData(ManagementObject mo)
+        {
+            string[] addresses = (string[])mo["IPAddress"];
+            string[] gateways = (string[])mo["DefaultIPGateway"];
+            string[] subnets = (string[])mo["IPSubnet"];
+
+            Console.WriteLine(mo["Description"]);
+            Console.WriteLine("IPv4 Address: {0}", addresses[0]);
+            Console.WriteLine("IPv6 Address: {0}", addresses[1]);
+            Console.WriteLine("MAC Address: {0}", mo["MACAddress"]);
+            Console.WriteLine("DHCP Enabled: {0}", mo["DHCPEnabled"]);
+            Console.WriteLine("Interface Index: {0}", mo["InterfaceIndex"]);
+            Console.WriteLine("");
         }
     }
 }
