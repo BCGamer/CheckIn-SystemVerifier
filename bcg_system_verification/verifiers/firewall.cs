@@ -10,12 +10,6 @@ namespace bcg_system_verification.verifiers
     {
         public static void Verify()
         {
-            checkFWStatus();
-
-        }
-
-        private static void checkFWStatus()
-        {
             if (Globals.debugMode) Debug.writeHeader("firewall.verify()");
 
             if (checkForWindowsFW() == "good")
@@ -39,6 +33,7 @@ namespace bcg_system_verification.verifiers
                 }
             }
         }
+
         private static string checkForWindowsFW()
         {
             /*

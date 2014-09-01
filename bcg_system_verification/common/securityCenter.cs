@@ -20,15 +20,27 @@ namespace bcg_system_verification.common
             string results = null;
             foreach (ManagementObject mo in moSearch.Get())
             {
-                if (Globals.debugMode) Console.WriteLine("Name: " + mo["displayName"]);
+                if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "Name", mo["displayName"]);
                 if (System.Environment.OSVersion.Version.Major < 6) //is XP ?
                 {
-                    results = results + windows5x(mo);
+                    if (results == null)
+                    {
+                        results = results + windows5x(mo);
+                    }
+                    else
+                    {
+                        results = results + "," + windows5x(mo);
+                    } 
                 }
                 else
                 {
-                    //return windows6x(mo);
-                    results = results + mo["ProductState"].ToString();
+                    if (results == null ){
+                        results = mo["ProductState"].ToString();
+                    }
+                    else
+                    {
+                        results = results + "," + mo["ProductState"].ToString();
+                    }                    
                 }
             }
 
