@@ -63,9 +63,8 @@
     <Compile Include="http\get.cs" />
     <Compile Include="http\post.cs" />
     <Compile Include="verifiers\antivirus.cs" />
-    <Compile Include="verifiers\dhcp.cs" />
+    <Compile Include="verifiers\network.cs" />
     <Compile Include="verifiers\firewall.cs" />
-    <Compile Include="verifiers\sfp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="verifiers\statusCheck.cs" />

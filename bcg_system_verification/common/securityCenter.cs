@@ -26,7 +26,8 @@ namespace bcg_system_verification.common
                 }
                 else
                 {
-                    return windows6x(mo);
+                    //return windows6x(mo);
+                    return mo["ProductState"].ToString();
                 }
             }
 

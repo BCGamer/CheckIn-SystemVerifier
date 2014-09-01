@@ -27,8 +27,7 @@ namespace bcg_system_verification
 
             firewall.Verify();
             antivirus.Verify();
-            dhcp.Verify();
-            Globals.collection.Add("sfp", sfp.Verify());
+            network.Verify();
 
             post.final();
             //Debugging console

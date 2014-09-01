@@ -4,7 +4,7 @@ using System.Management;
 
 namespace bcg_system_verification.verifiers
 {
-    class dhcp
+    class network
     {
         public static void Verify()
         {
@@ -13,6 +13,15 @@ namespace bcg_system_verification.verifiers
             if (Globals.debugMode) Console.WriteLine("");
         }
 
+        private static void windows6x()
+        {
+
+        }
+
+        private static void windows5x()
+        {
+
+        }
         private static string checkDHCPStatusFromWMI()
         {
             ManagementScope Scope = new ManagementScope("root\\CIMV2");
