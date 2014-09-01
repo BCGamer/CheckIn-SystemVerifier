@@ -13,6 +13,7 @@ namespace bcg_system_verification.verifiers
             Globals.collection.Add("antivirus", securityCenter.viewObjects("AntiVirusProduct"));
         }
 
+        /*
         private static string checkForAntivirus()
         {
             //FirewallProduct
@@ -36,6 +37,6 @@ namespace bcg_system_verification.verifiers
             }
 
             return "problem";
-        }
+        }*/
     }
 }

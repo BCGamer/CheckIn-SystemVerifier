@@ -11,8 +11,6 @@ namespace bcg_system_verification.verifiers
             if (Globals.debugMode) Debug.writeHeader("network.Verify()");
             ManagementObject mo = findNetAdptConfigWMI();
             checkDHCPStatusWMI(mo);
-            if (Globals.debugMode) Console.WriteLine("");
-            
         }
 
         private static ManagementObject findNetAdptConfigWMI()
@@ -42,18 +40,20 @@ namespace bcg_system_verification.verifiers
             switch (mo["DHCPEnabled"].ToString())
             {
                 case "True":
-                    if (Globals.debugMode) Console.WriteLine("Returning True from network.checkDHCPStatusWMI()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "True", "network.checkDHCPStatusWMI()");
                     Globals.collection.Add("dhcp", "True");
                     break;
                 case "False":
-                    if (Globals.debugMode) Console.WriteLine("Returning False from network.checkDHCPStatusWMI()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "False", "network.checkDHCPStatusWMI()");
                     Globals.collection.Add("dhcp", "False");
                     break;
                 default:
-                    if (Globals.debugMode) Console.WriteLine("Returning Problem from network.checkDHCPStatusWMI()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "Problem", "network.checkDHCPStatusWMI()");
                     Globals.collection.Add("dhcp", "Problem");
                     break;
             }
+            
+            if (Globals.debugMode) Console.WriteLine("");
         }
 
         private static void dumpDebugData(ManagementObject mo)
@@ -63,11 +63,11 @@ namespace bcg_system_verification.verifiers
             string[] subnets = (string[])mo["IPSubnet"];
 
             Console.WriteLine(mo["Description"]);
-            Console.WriteLine("IPv4 Address: {0}", addresses[0]);
-            Console.WriteLine("IPv6 Address: {0}", addresses[1]);
-            Console.WriteLine("MAC Address: {0}", mo["MACAddress"]);
-            Console.WriteLine("DHCP Enabled: {0}", mo["DHCPEnabled"]);
-            Console.WriteLine("Interface Index: {0}", mo["InterfaceIndex"]);
+            Console.WriteLine("{0,-15}: {1,-40}", "IPv4 Address", addresses[0]);
+            Console.WriteLine("{0,-15}: {1,-40}", "IPv6 Address", addresses[1]);
+            Console.WriteLine("{0,-15}: {1,-40}", "MAC Address", mo["MACAddress"]);
+            Console.WriteLine("{0,-15}: {1,-40}", "DHCP Enabled", mo["DHCPEnabled"]);
+            Console.WriteLine("{0,-15}: {1,-40}", "Interface Index", mo["InterfaceIndex"]);
             Console.WriteLine("");
         }
     }

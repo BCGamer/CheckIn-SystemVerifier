@@ -10,22 +10,35 @@ namespace bcg_system_verification.verifiers
     {
         public static void Verify()
         {
-            if (Globals.debugMode) Debug.writeHeader("firewall.verify()");
-            string windowsFW = checkForWindowsFW();
-            string otherFW = securityCenter.viewObjects("FirewallProduct");
-            if (windowsFW == "good"){
-                if (Globals.debugMode) Console.WriteLine("Returning GOOD status firewall.Verify()");
-                Globals.collection.Add("firewall", windowsFW);
-            }else if (otherFW != "problem" || otherFW != "bad"){
-                if (Globals.debugMode) Console.WriteLine("Returning status details from firewall.Verify()");
-                Globals.collection.Add("firewall", otherFW);
-            }else{
-                if (Globals.debugMode) Console.WriteLine("Returning BAD status from firewall.Verify()");
-                Globals.collection.Add("firewall","bad");
-            }
+            checkFWStatus();
 
         }
 
+        private static void checkFWStatus()
+        {
+            if (Globals.debugMode) Debug.writeHeader("firewall.verify()");
+
+            if (checkForWindowsFW() == "good")
+            {
+                if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "good", "firewall.Verify()");
+                Globals.collection.Add("firewall", "good");
+            }
+            else
+            {
+                string otherFW = securityCenter.viewObjects("FirewallProduct");
+
+                if (otherFW != null)
+                {
+                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", otherFW, "firewall.Verify()");
+                    Globals.collection.Add("firewall", otherFW);
+                }
+                else
+                {
+                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "bad", "firewall.Verify()");
+                    Globals.collection.Add("firewall", "bad");
+                }
+            }
+        }
         private static string checkForWindowsFW()
         {
             /*
@@ -43,17 +56,17 @@ namespace bcg_system_verification.verifiers
 
             if (Globals.debugMode)
             {
-                Console.WriteLine("Standard Firewall: " + stdFwStatus);
-                Console.WriteLine("Public Firewall: " + pubFwStatus);
+                Console.WriteLine("{0,-15}: {1,-40}", "Std Firewall", stdFwStatus);
+                Console.WriteLine("{0,-15}: {1,-40}", "Pub Firewall", pubFwStatus);
             }
 
             if (stdFwStatus.ToString() == "1" && pubFwStatus.ToString() == "1")
             {
-                if (Globals.debugMode) Console.WriteLine("Returning GOOD status from windows firewall");
+                if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}","good","checkForWindowsFW()");
                 return "good";
             }
 
-            if (Globals.debugMode) Console.WriteLine("Returning BAD status from windows firewall");
+            if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "bad", "checkForWindowsFW()");
             return "bad";
         }
 

@@ -17,24 +17,26 @@ namespace bcg_system_verification.common
             ObjectQuery Query = new ObjectQuery("SELECT * FROM " + productGroup);
             ManagementObjectSearcher moSearch = new ManagementObjectSearcher(Scope, Query);
 
+            string results = null;
             foreach (ManagementObject mo in moSearch.Get())
             {
                 if (Globals.debugMode) Console.WriteLine("Name: " + mo["displayName"]);
                 if (System.Environment.OSVersion.Version.Major < 6) //is XP ?
                 {
-                    return windows5x(mo);
+                    results = results + windows5x(mo);
                 }
                 else
                 {
                     //return windows6x(mo);
-                    return mo["ProductState"].ToString();
+                    results = results + mo["ProductState"].ToString();
                 }
             }
 
-            if (Globals.debugMode) Console.WriteLine("Returning BAD status from other firewall");
-            return "bad";
+            if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", results, "securityCenter.viewObjects()");
+            return results;
         }
 
+        /*
         private static string windows6x(ManagementObject mo)
         {
             //Vista, 7, 8, 8.1
@@ -74,7 +76,7 @@ namespace bcg_system_verification.common
             }
 
             
-        }
+        }*/
 
         private static string windows5x(ManagementObject mo)
         {
