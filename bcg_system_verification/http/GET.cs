@@ -12,9 +12,8 @@ namespace bcg_system_verification.http
         public static void uuid_and_ip()
         {
             testGET();
-            Globals.collection.Add("uuid", "1234");
-            Globals.collection.Add("ipaddress", "10.5.1.240");
-            bcgGET();
+            setVars();
+            //bcgGET();
         }
 
         private static string getHTTP(string webServer)
@@ -75,6 +74,12 @@ namespace bcg_system_verification.http
 
             [DataMember]
             public string url { get; set; }
+        }
+
+        private static void setVars()
+        {
+            Globals.collection.Add("uuid", "1234");
+            Globals.collection.Add("ipaddress", "10.5.1.240");
         }
     }
 }
