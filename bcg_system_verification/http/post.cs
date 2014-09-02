@@ -10,17 +10,30 @@ namespace bcg_system_verification.http
         public static void final()
         {
             //testPost();
+            //bcgPost();
+        }
+
+        private static string postHTTP(string webServer)
+        {
+            using (var client = new WebClient())
+            {
+                var response = client.UploadValues(webServer, Globals.collection);
+                return Encoding.Default.GetString(response);
+            }
+        }
+
+        private static void bcgPost()
+        {
+            string webServer = "http://django.bcgamer.com/verification_response/";
+            string responseString = postHTTP(webServer);
+
+            Console.WriteLine(responseString);
         }
 
         private static void testPost()
         {
             string webServer = "https://posttestserver.com/post.php";
-            string responseString = null;
-            using (var client = new WebClient())
-            {
-                var response = client.UploadValues(webServer, Globals.collection);
-                responseString = Encoding.Default.GetString(response);
-            }
+            string responseString = postHTTP(webServer);
 
             Console.WriteLine(responseString);
         }
