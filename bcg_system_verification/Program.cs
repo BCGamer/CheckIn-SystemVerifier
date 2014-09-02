@@ -23,7 +23,7 @@ namespace bcg_system_verification
 
         private static void App(){
             //Connect to web server to grab uuid and ip
-            get.uuid_and_ip();
+            get.start();
 
             firewall.Verify();
             antivirus.Verify();

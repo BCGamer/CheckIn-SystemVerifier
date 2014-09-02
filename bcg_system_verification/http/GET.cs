@@ -9,9 +9,9 @@ namespace bcg_system_verification.http
 {
     class get
     {
-        public static void uuid_and_ip()
+        public static void start()
         {
-            testGET();
+            //testGET();
             setVars();
             //bcgGET();
         }
@@ -31,7 +31,7 @@ namespace bcg_system_verification.http
             string webServer = "http://django.bcgamer.com/";
             string responseString = getHTTP(webServer);
 
-            bcgGET getVARS = JsonConvert.DeserializeObject<bcgGET>(responseString);
+            bcgGETobject getVARS = JsonConvert.DeserializeObject<bcgGETobject>(responseString);
 
             Globals.collection.Add("uuid", getVARS.uuid);
             Globals.collection.Add("ipaddress", getVARS.ipaddress);
@@ -42,7 +42,7 @@ namespace bcg_system_verification.http
         }
 
         [DataContract]
-        public class bcgGET
+        public class bcgGETobject
         {
             [DataMember]
             public string uuid { get; set; }
@@ -59,14 +59,14 @@ namespace bcg_system_verification.http
             string webServer = "http://httpbin.org/get";
             string responseString = getHTTP(webServer);
 
-            testGET test = JsonConvert.DeserializeObject<testGET>(responseString);
+            testGETobject test = JsonConvert.DeserializeObject<testGETobject>(responseString);
 
             Console.WriteLine(test.origin);
             Console.WriteLine(test.url);
         }
 
         [DataContract]
-        public class testGET
+        public class testGETobject
         {
             // included in JSON
             [DataMember]

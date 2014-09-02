@@ -40,15 +40,15 @@ namespace bcg_system_verification.verifiers
             switch (mo["DHCPEnabled"].ToString())
             {
                 case "True":
-                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "True", "network.checkDHCPStatusWMI()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "network.checkDHCPStatusWMI()", "True");
                     Globals.collection.Add("dhcp", "True");
                     break;
                 case "False":
-                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "False", "network.checkDHCPStatusWMI()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "False", "network.checkDHCPStatusWMI()");
                     Globals.collection.Add("dhcp", "False");
                     break;
                 default:
-                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "Problem", "network.checkDHCPStatusWMI()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "Problem", "network.checkDHCPStatusWMI()");
                     Globals.collection.Add("dhcp", "Problem");
                     break;
             }
@@ -63,11 +63,14 @@ namespace bcg_system_verification.verifiers
             string[] subnets = (string[])mo["IPSubnet"];
 
             Console.WriteLine(mo["Description"]);
-            Console.WriteLine("{0,-15}: {1,-40}", "IPv4 Address", addresses[0]);
-            Console.WriteLine("{0,-15}: {1,-40}", "IPv6 Address", addresses[1]);
-            Console.WriteLine("{0,-15}: {1,-40}", "MAC Address", mo["MACAddress"]);
-            Console.WriteLine("{0,-15}: {1,-40}", "DHCP Enabled", mo["DHCPEnabled"]);
-            Console.WriteLine("{0,-15}: {1,-40}", "Interface Index", mo["InterfaceIndex"]);
+            Console.WriteLine("{0,-30}: {1,-40}", "IPv4 Address", addresses[0]);
+            Console.WriteLine("{0,-30}: {1,-40}", "IPv4 Subnet Mask", subnets[0]);
+            Console.WriteLine("{0,-30}: {1,-40}", "IPv6 Address", addresses[1]);
+            Console.WriteLine("{0,-30}: {1,-40}", "IPv6 Subnet Mask", subnets[1]);
+            Console.WriteLine("{0,-30}: {1,-40}", "Gateway(s)", string.Join(",",gateways));
+            Console.WriteLine("{0,-30}: {1,-40}", "MAC Address", mo["MACAddress"]);
+            Console.WriteLine("{0,-30}: {1,-40}", "DHCP Enabled", mo["DHCPEnabled"]);
+            Console.WriteLine("{0,-30}: {1,-40}", "Interface Index", mo["InterfaceIndex"]);
             Console.WriteLine("");
         }
     }

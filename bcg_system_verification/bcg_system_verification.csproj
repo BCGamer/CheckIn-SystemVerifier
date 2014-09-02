@@ -60,8 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments.cs" />
-    <Compile Include="collector\hostname.cs" />
-    <Compile Include="collector\networkMAC.cs" />
     <Compile Include="common\securityCenter.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Globals.cs" />

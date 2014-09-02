@@ -14,7 +14,7 @@ namespace bcg_system_verification.verifiers
 
             if (checkForWindowsFW() == "good")
             {
-                if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "good", "firewall.Verify()");
+                if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "firewall.Verify()", "good");
                 Globals.collection.Add("firewall", "good");
             }
             else
@@ -23,12 +23,12 @@ namespace bcg_system_verification.verifiers
 
                 if (otherFW != null)
                 {
-                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", otherFW, "firewall.Verify()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "firewall.Verify()", otherFW);
                     Globals.collection.Add("firewall", otherFW);
                 }
                 else
                 {
-                    if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "bad", "firewall.Verify()");
+                    if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "firewall.Verify()", "bad");
                     Globals.collection.Add("firewall", "bad");
                 }
             }
@@ -51,17 +51,17 @@ namespace bcg_system_verification.verifiers
 
             if (Globals.debugMode)
             {
-                Console.WriteLine("{0,-15}: {1,-40}", "Std Firewall", stdFwStatus);
-                Console.WriteLine("{0,-15}: {1,-40}", "Pub Firewall", pubFwStatus);
+                Console.WriteLine("{0,-30}: {1,-40}", "Std Firewall", stdFwStatus);
+                Console.WriteLine("{0,-30}: {1,-40}", "Pub Firewall", pubFwStatus);
             }
 
             if (stdFwStatus.ToString() == "1" && pubFwStatus.ToString() == "1")
             {
-                if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}","good","checkForWindowsFW()");
+                if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "checkForWindowsFW()", "good");
                 return "good";
             }
 
-            if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "bad", "checkForWindowsFW()");
+            if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "checkForWindowsFW()", "bad");
             return "bad";
         }
 

@@ -20,7 +20,7 @@ namespace bcg_system_verification.common
             string results = null;
             foreach (ManagementObject mo in moSearch.Get())
             {
-                if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", "Name", mo["displayName"]);
+                if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "Name", mo["displayName"]);
                 if (System.Environment.OSVersion.Version.Major < 6) //is XP ?
                 {
                     if (results == null)
@@ -44,7 +44,7 @@ namespace bcg_system_verification.common
                 }
             }
 
-            if (Globals.debugMode) Console.WriteLine("{0,-15}: {1,-40}", results, "securityCenter.viewObjects()");
+            if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "securityCenter.viewObjects()", results);
             return results;
         }
 
