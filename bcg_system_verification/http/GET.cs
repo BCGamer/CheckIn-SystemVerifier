@@ -12,8 +12,8 @@ namespace bcg_system_verification.http
         public static void start()
         {
             //testGET();
-            setVars();
-            //bcgGET();
+            //setVars();
+            bcgGET();
         }
 
         private static string getHTTP(string webServer)
