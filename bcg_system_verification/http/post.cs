@@ -24,7 +24,7 @@ namespace bcg_system_verification.http
 
         private static void bcgPost()
         {
-            string webServer = "http://django.bcgamer.com/verification_response/";
+            string webServer = "http://checkin.bcgamer.lan/verification_response/";
             string responseString = postHTTP(webServer);
 
             Console.WriteLine(responseString);
