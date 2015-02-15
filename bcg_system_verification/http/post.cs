@@ -10,7 +10,7 @@ namespace bcg_system_verification.http
         public static void final()
         {
             //testPost();
-            //bcgPost();
+            bcgPost();
         }
 
         private static string postHTTP(string webServer)
