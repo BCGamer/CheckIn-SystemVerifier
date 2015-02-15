@@ -15,7 +15,7 @@ namespace bcg_system_verification.verifiers
             if (checkForWindowsFW() == "good")
             {
                 if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "firewall.Verify()", "good");
-                Globals.collection.Add("firewall", "good");
+                Globals.collection.Add("firewall", "397568");
             }
             else
             {
@@ -29,7 +29,7 @@ namespace bcg_system_verification.verifiers
                 else
                 {
                     if (Globals.debugMode) Console.WriteLine("{0,-30}: {1,-40}", "firewall.Verify()", "bad");
-                    Globals.collection.Add("firewall", "bad");
+                    Globals.collection.Add("firewall", "393472");
                 }
             }
         }
