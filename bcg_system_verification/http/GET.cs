@@ -28,7 +28,7 @@ namespace bcg_system_verification.http
 
         private static void bcgGET()
         {
-            string webServer = "http://checkin.bcgamer.lan/";
+            string webServer = "http://checkin.bcgamer.lan/verify/uuidforip";
             string responseString = getHTTP(webServer);
 
             bcgGETobject getVARS = JsonConvert.DeserializeObject<bcgGETobject>(responseString);

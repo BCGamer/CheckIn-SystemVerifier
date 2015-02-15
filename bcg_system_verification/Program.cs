@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Text;
+//using System.Collections.Generic;
+using System.Reflection;
+
+
 using bcg_system_verification.verifiers;
 using bcg_system_verification.http;
 
@@ -15,6 +19,7 @@ namespace bcg_system_verification
             AppDomain.CurrentDomain.UnhandledException += 
                 new UnhandledExceptionEventHandler(
                     handler.Application_Exception);
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
             //remove me when done
             Globals.debugMode = true;
@@ -40,7 +45,23 @@ namespace bcg_system_verification
             //Debugging console
             if (Globals.debugMode) Debug.results();         
         }
-        
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("EmbedAssembly.Newtonsoft.Json.dll"))
+            {
+                byte[] assemblyData = new byte[stream.Length];
+                stream.Read(assemblyData, 0, assemblyData.Length);
+                return Assembly.Load(assemblyData);
+            }
+        }
     }
 
     /// 
