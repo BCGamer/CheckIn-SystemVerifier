@@ -11,6 +11,7 @@ namespace bcg_system_verification.verifiers
             if (Globals.debugMode) Debug.writeHeader("network.Verify()");
             ManagementObject mo = findNetAdptConfigWMI();
             checkDHCPStatusWMI(mo);
+            Globals.collection.Add("mac", Convert.ToString(mo["MACAddress"]));
         }
 
         private static ManagementObject findNetAdptConfigWMI()
