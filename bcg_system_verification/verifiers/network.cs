@@ -28,9 +28,12 @@ namespace bcg_system_verification.verifiers
 
                 //Loops through objects until the IP = ipaddress
                 //Array [0 = ipv4, 1=ipv6]
-                if (addresses[0] != Globals.collection.Get("ipaddress")) continue;
+                foreach (string address in addresses){
+                    if (address != Globals.collection.Get("ipaddress")) continue;
 
-                return mo;
+                    return mo;
+                }
+                
             }
 
             return null;
@@ -64,10 +67,14 @@ namespace bcg_system_verification.verifiers
             string[] subnets = (string[])mo["IPSubnet"];
 
             Console.WriteLine(mo["Description"]);
-            Console.WriteLine("{0,-30}: {1,-40}", "IPv4 Address", addresses[0]);
-            Console.WriteLine("{0,-30}: {1,-40}", "IPv4 Subnet Mask", subnets[0]);
-            Console.WriteLine("{0,-30}: {1,-40}", "IPv6 Address", addresses[1]);
-            Console.WriteLine("{0,-30}: {1,-40}", "IPv6 Subnet Mask", subnets[1]);
+            foreach (string address in addresses)
+            {
+                Console.WriteLine("{0,-30}: {1,-40}", "IP Address", address);   
+            }
+            foreach (string subnet in subnets)
+            {
+                Console.WriteLine("{0,-30}: {1,-40}", "Subnet Mask", subnet);
+            }
             Console.WriteLine("{0,-30}: {1,-40}", "Gateway(s)", string.Join(",",gateways));
             Console.WriteLine("{0,-30}: {1,-40}", "MAC Address", mo["MACAddress"]);
             Console.WriteLine("{0,-30}: {1,-40}", "DHCP Enabled", mo["DHCPEnabled"]);
