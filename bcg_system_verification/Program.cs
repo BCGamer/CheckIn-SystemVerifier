@@ -55,7 +55,7 @@ namespace bcg_system_verification
         /// <returns></returns>
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("EmbedAssembly.Newtonsoft.Json.dll"))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("bcg_system_verification.Newtonsoft.Json.dll"))
             {
                 byte[] assemblyData = new byte[stream.Length];
                 stream.Read(assemblyData, 0, assemblyData.Length);
