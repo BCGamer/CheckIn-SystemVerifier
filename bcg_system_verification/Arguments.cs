@@ -13,13 +13,6 @@ namespace bcg_system_verification
                 {
                     Debug.init();
                 }
-                if (value.Contains("/server:"))
-                {
-                    //To hardcode server for debugging
-                    //syntax - /server:10.5.1.5 or /server:nameServer
-                    Globals.collection.Remove("server");
-                    Globals.collection.Set("server",value.Replace("/server:",""));
-                }
             }
         }
     }

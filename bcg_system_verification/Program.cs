@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-//using System.Collections.Generic;
 using System.Reflection;
 
 
@@ -20,10 +19,6 @@ namespace bcg_system_verification
                 new UnhandledExceptionEventHandler(
                     handler.Application_Exception);
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-
-            //remove me when done
-            Globals.debugMode = true;
-            Debug.writeHeader("Mode Debugging");
 
             //Startup
             Globals.init();
@@ -84,7 +79,8 @@ namespace bcg_system_verification
                 e.StackTrace;
 
             Console.WriteLine(errorMessage);
-
+            Console.WriteLine("\nPress <Enter> to close the window.");
+            Console.Read();
             // Prevents annoying Windows 7 crash message
             Environment.Exit(1);
         }
