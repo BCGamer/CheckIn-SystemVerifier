@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-//using System.Collections.Generic;
 using System.Reflection;
 
 
@@ -20,12 +19,10 @@ namespace bcg_system_verification
                 new UnhandledExceptionEventHandler(
                     handler.Application_Exception);
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-
-            //remove me when done
-            Globals.debugMode = true;
-            Debug.writeHeader("Mode Debugging");
-
+            
             //Startup
+  
+
             Globals.init();
             Arguments.check(args);
 
@@ -34,6 +31,7 @@ namespace bcg_system_verification
         }
 
         private static void App(){
+            Console.WriteLine("System verification starting...\n");
             //Connect to web server to grab uuid and ip
             get.start();
 
@@ -42,6 +40,8 @@ namespace bcg_system_verification
             network.Verify();
 
             post.final();
+            Console.WriteLine("System verification complete.");
+
             //Debugging console
             if (Globals.debugMode) Debug.results();         
         }
@@ -78,12 +78,24 @@ namespace bcg_system_verification
 
             Exception e = (Exception)args.ExceptionObject;
 
-            string errorMessage = "UnhandledException:\n\n" +
-                e.Message + "\n\n" +
-                e.GetType() + "\n\nStack Trace:\n" +
-                e.StackTrace;
+            string errorMessage = "";
+            
+            // If debugging is enabled print more details message
+            if (Globals.debugMode)
+            {
+                    errorMessage = "UnhandledException:\n\n" +
+                    e.Message + "\n\n" +
+                    e.GetType() + "\n\nStack Trace:\n" +
+                    e.StackTrace;
+            } else
+            {
+                    errorMessage = e.Message;
+            }
 
+            Console.WriteLine("System verification failed.\n");
             Console.WriteLine(errorMessage);
+            Console.WriteLine("\nPress <Enter> to close the window.");
+            Console.Read();
 
             // Prevents annoying Windows 7 crash message
             Environment.Exit(1);
